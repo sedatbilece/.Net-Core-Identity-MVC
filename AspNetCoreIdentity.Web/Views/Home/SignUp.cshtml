@@ -1,0 +1,56 @@
+﻿
+
+@{
+    ViewData["Title"] = "SignUp";
+}
+
+
+
+@model SignUpViewModel
+
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h2>Kullanıcı Kayıt Formu </h2>
+        <form>
+
+    <div class="mb-3">
+        <label for="Username" class="form-label" asp-for="UserName"></label>
+        <input  class="form-control" asp-for="UserName" id="Username">
+    </div>
+
+            <div class="mb-3">
+                <label for="Email" class="form-label" asp-for="Email"></label>
+                <input class="form-control" asp-for="Email" id="Email">
+            </div>
+
+             <div class="mb-3">
+                <label for="Phone" class="form-label" asp-for="Phone"></label>
+                <input class="form-control" asp-for="Phone" id="Phone">
+            </div>
+
+            <div class="mb-3">
+                <label for="Password" class="form-label" asp-for="Password"></label>
+                <input class="form-control" asp-for="Password" id="Password">
+            </div>
+
+            <div class="mb-3">
+                <label for="PasswordConfirm" class="form-label" asp-for="PasswordConfirm"></label>
+                <input class="form-control" asp-for="PasswordConfirm" id="PasswordConfirm">
+            </div>
+            <div class="mb-3">
+                
+                <div class="col-md-8 offset-md-10">
+                    <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+                </div>
+            </div>
+
+            
+         </form>
+
+    </div>
+</div>
+
+
+
+
