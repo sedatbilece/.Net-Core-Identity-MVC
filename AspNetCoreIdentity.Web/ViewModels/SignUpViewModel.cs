@@ -5,6 +5,10 @@ namespace AspNetCoreIdentity.Web.ViewModels
     public class SignUpViewModel
     {
 
+        public SignUpViewModel()
+        {
+
+        }
         public SignUpViewModel(string userName, string email, string phone, string password)
         {
             UserName= userName;

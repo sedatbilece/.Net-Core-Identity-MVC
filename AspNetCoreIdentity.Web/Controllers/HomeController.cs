@@ -1,5 +1,8 @@
 ﻿using AspNetCoreIdentity.Web.Models;
+using AspNetCoreIdentity.Web.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
 namespace AspNetCoreIdentity.Web.Controllers
@@ -8,9 +11,12 @@ namespace AspNetCoreIdentity.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly UserManager<AppUser> _userManager;
+
+        public HomeController(ILogger<HomeController> logger , UserManager<AppUser> userManager)
         {
             _logger = logger;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -28,6 +34,31 @@ namespace AspNetCoreIdentity.Web.Controllers
         public IActionResult SignUp() {
         
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SignUp(SignUpViewModel request)
+        {
+
+         var identityResult = await   _userManager.CreateAsync(new()
+            {
+                UserName = request.UserName,
+                Email = request.Email,
+                PhoneNumber = request.Phone
+            }, request.PasswordConfirm);
+
+            if (identityResult.Succeeded)
+            {
+                ViewBag.SuccessMessage = "Kayıt işlemi başarı ile gerçekleştirilmiştir";
+                return RedirectToAction("Index");
+            }
+
+
+            foreach(IdentityError item in identityResult.Errors)
+            {
+                ModelState.AddModelError(string.Empty, item.Description);
+            }
+            return RedirectToAction("Privacy");
         }
 
 

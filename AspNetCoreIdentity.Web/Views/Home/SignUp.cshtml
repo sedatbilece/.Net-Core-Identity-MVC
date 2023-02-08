@@ -11,8 +11,15 @@
 
 <div class="row">
     <div class="col-md-6 offset-md-3">
-        <h2>Kullanıcı Kayıt Formu </h2>
-        <form>
+        <h2>Kullanıcı Kayıt Formu</h2>
+
+        @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+        {
+            <div class="alert alert-info" role="alert">
+                @ViewBag.SuccessMessage
+            </div>
+        }
+        <form asp-asp-controller="Home" asp-action="SignUp" method="post">
 
     <div class="mb-3">
         <label for="Username" class="form-label" asp-for="UserName"></label>
