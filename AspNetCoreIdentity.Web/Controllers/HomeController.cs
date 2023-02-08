@@ -65,7 +65,7 @@ namespace AspNetCoreIdentity.Web.Controllers
             
 
             //
-            foreach(IdentityError item in identityResult.Errors)
+            foreach(IdentityError item in identityResult.Errors)//Identity model errors
             {
                 ModelState.AddModelError(string.Empty, item.Description);
             }
