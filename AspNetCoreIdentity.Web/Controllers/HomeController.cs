@@ -40,25 +40,36 @@ namespace AspNetCoreIdentity.Web.Controllers
         public async Task<IActionResult> SignUp(SignUpViewModel request)
         {
 
-         var identityResult = await   _userManager.CreateAsync(new()
+            if (!ModelState.IsValid)// validation error
+            {
+                return View();
+            }
+
+
+            //signup
+            var identityResult = await   _userManager.CreateAsync(new()
             {
                 UserName = request.UserName,
                 Email = request.Email,
                 PhoneNumber = request.Phone
             }, request.PasswordConfirm);
 
-            if (identityResult.Succeeded)
+
+            
+
+            if (identityResult.Succeeded)// signup redirect
             {
-                ViewBag.SuccessMessage = "Kayıt işlemi başarı ile gerçekleştirilmiştir";
-                return RedirectToAction("Index");
+                TempData["SuccessMessage"] = "Kayıt işlemi başarı ile gerçekleştirilmiştir";
+                return RedirectToAction(nameof(HomeController.SignUp));
             }
+            
 
-
+            //
             foreach(IdentityError item in identityResult.Errors)
             {
                 ModelState.AddModelError(string.Empty, item.Description);
             }
-            return RedirectToAction("Privacy");
+            return View();
         }
 
 

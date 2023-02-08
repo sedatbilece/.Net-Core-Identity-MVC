@@ -13,37 +13,47 @@
     <div class="col-md-6 offset-md-3">
         <h2>Kullanıcı Kayıt Formu</h2>
 
-        @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+        @if (TempData["SuccessMessage"]!=null)
         {
             <div class="alert alert-info" role="alert">
-                @ViewBag.SuccessMessage
+                @TempData["SuccessMessage"]
             </div>
         }
+
+        <div asp-validation-summary=ModelOnly class="alert alert-danger" role="alert"> 
+
+        </div>
+
         <form asp-asp-controller="Home" asp-action="SignUp" method="post">
 
     <div class="mb-3">
         <label for="Username" class="form-label" asp-for="UserName"></label>
         <input  class="form-control" asp-for="UserName" id="Username">
+        <span class="text-danger" asp-validation-for="UserName"></span>
     </div>
 
             <div class="mb-3">
                 <label for="Email" class="form-label" asp-for="Email"></label>
                 <input class="form-control" asp-for="Email" id="Email">
+                <span class="text-danger" asp-validation-for="Email"></span>
             </div>
 
              <div class="mb-3">
                 <label for="Phone" class="form-label" asp-for="Phone"></label>
                 <input class="form-control" asp-for="Phone" id="Phone">
+                <span class="text-danger" asp-validation-for="Phone"></span>
             </div>
 
             <div class="mb-3">
                 <label for="Password" class="form-label" asp-for="Password"></label>
                 <input class="form-control" asp-for="Password" id="Password">
+                <span class="text-danger" asp-validation-for="Password"></span>
             </div>
 
             <div class="mb-3">
                 <label for="PasswordConfirm" class="form-label" asp-for="PasswordConfirm"></label>
                 <input class="form-control" asp-for="PasswordConfirm" id="PasswordConfirm">
+                <span class="text-danger" asp-validation-for="PasswordConfirm"></span>
             </div>
             <div class="mb-3">
                 
