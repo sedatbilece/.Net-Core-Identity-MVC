@@ -22,13 +22,13 @@
         <form asp-controller="Home" asp-action="SignIn" method="post">
             <div class="mb-3">
                 <label for="Email" class="form-label" asp-for="Email"></label>
-                <input class="form-control" asp-for="Email" id="Email">
+                <input class="form-control" asp-for="Email" id="Email" type="email">
                 <span class="text-danger" asp-validation-for="Email"></span>
             </div>
 
             <div class="mb-3">
                 <label for="Password" class="form-label" asp-for="Password"></label>
-                <input class="form-control" asp-for="Password" id="Password">
+                <input class="form-control" asp-for="Password" id="Password" type="password">
                 <span class="text-danger" asp-validation-for="Password"></span>
             </div>
              

@@ -29,19 +29,46 @@
                     </ul>
                     <ul class="navbar-nav m-2">
 
-                        <li class="nav-item ">
-                            <button type="button" class="btn btn-outline-secondary h-100">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignIn">Üye Giriş</a>
-                            </button>
 
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown mx-5">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @User.Identity.Name
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" 
+                                        asp-controller="Member" asp-action="LogOut" >Çıkış Yap</a></li>
 
-                        <li class="nav-item mx-1">
-                            <button type="button" class="btn btn-outline-secondary h-100">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">Kayıt Ol</a>
-                            </button>
-                           
-                        </li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item ">
+                                <button type="button" class="btn btn-outline-secondary h-100">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignIn">Üye Giriş</a>
+                                </button>
+
+                            </li>
+
+                            <li class="nav-item mx-1">
+                                <button type="button" class="btn btn-outline-secondary h-100">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">Kayıt Ol</a>
+                                </button>
+
+                            </li>
+                        }
+
+
+
+                        
+
+                        
+
+                        
+                       
+
                         
 
                     </ul>
