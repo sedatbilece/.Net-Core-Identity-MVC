@@ -12,16 +12,13 @@ namespace AspNetCoreIdentity.Web.CustomValidations
            
             if(password.ToLower().Contains(user.UserName.ToLower()))
             {
-                errors.Add(new() { Code = "PasswordNoContainsUserName", Description = "Şifre alanı kullanıcı adı içeremez" });
+                errors.Add(new() { Code = "PasswordContainsUserName", Description = "Şifre alanı kullanıcı adı içeremez" });
             }
 
             if (password.ToLower().StartsWith("1234"))
             {
-                errors.Add(new() { Code = "PasswordNoContains1234", Description = "Şifre alanı ardışık sayı içeremez" });
+                errors.Add(new() { Code = "PasswordContains1234", Description = "Şifre alanı ardışık sayı içeremez" });
             }
-
-
-
 
             if(errors.Any())//hata var
             {
