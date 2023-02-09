@@ -48,7 +48,7 @@ namespace AspNetCoreIdentity.Web.Controllers
         {
 
             //herhangi bir url'e gidilecek erişim isterse urli tutmak için 
-            returnUrl = returnUrl ?? Url.Action("Privacy", "Home");
+            returnUrl = returnUrl ?? Url.Action("Index", "Home");
 
 
 
