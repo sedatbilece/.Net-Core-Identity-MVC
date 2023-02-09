@@ -47,18 +47,22 @@ namespace AspNetCoreIdentity.Web.Controllers
         public async Task<IActionResult> SignIn(SignInViewModel model,string? returnUrl=null)
         {
 
+            //herhangi bir url'e gidilecek erişim isterse urli tutmak için 
             returnUrl = returnUrl ?? Url.Action("Privacy", "Home");
 
 
+
+            //email üzerinden userı alıyoruz
             var isUser = await _userManager.FindByEmailAsync(model.Email);
 
             if (isUser == null)
             {
-                ModelState.AddModelError(string.Empty, "Email veya Şifre yanlış");
+                ModelState.AddModelError(string.Empty, "Email veya Şifre yanlış.");
                 return View();
             }
 
-            var result = await _signInManager.PasswordSignInAsync(isUser, model.Password,model.RememberMe,false);
+            //login işlemi
+            var result = await _signInManager.PasswordSignInAsync(isUser, model.Password,model.RememberMe,true);
 
             if (result.Succeeded)
             {
@@ -66,7 +70,14 @@ namespace AspNetCoreIdentity.Web.Controllers
                  
             }
 
-            ModelState.AddModelError(string.Empty, "Email veya Şifre yanlış");
+            if (result.IsLockedOut)
+            {
+                ModelState.AddModelError(string.Empty, "3 dk boyunca giriş yapamazsınız.");
+                return View();
+            }
+
+            ModelState.AddModelError(string.Empty, $"Email veya Şifre yanlış [Başarısız giriş sayısı : " +
+                $"{await _userManager.GetAccessFailedCountAsync(isUser)}]");
 
             return View();
         }

@@ -14,6 +14,18 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddIdentityExtension();// Extensions/StartupExtensions (Sadeleþtirme için)
 
+builder.Services.ConfigureApplicationCookie(opt =>
+{
+
+    var cookieBuilder = new CookieBuilder();
+    cookieBuilder.Name = "IdentityApp";
+
+    opt.LoginPath = "/Home/SignIn";
+    
+    opt.Cookie = cookieBuilder;
+    opt.ExpireTimeSpan= TimeSpan.FromDays(60);
+    opt.SlidingExpiration = true;
+});
 
 var app = builder.Build();
 

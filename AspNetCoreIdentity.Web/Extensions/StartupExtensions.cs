@@ -23,6 +23,10 @@ namespace AspNetCoreIdentity.Web.Extensions
                 options.Password.RequireDigit = false;
 
 
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(3);
+                options.Lockout.MaxFailedAccessAttempts = 3;
+
+
             })
                 .AddPasswordValidator<PasswordValidator>()
                 .AddUserValidator<UserValidator>()
