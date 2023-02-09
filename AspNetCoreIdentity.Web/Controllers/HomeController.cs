@@ -30,6 +30,10 @@ namespace AspNetCoreIdentity.Web.Controllers
         }
 
 
+        public IActionResult SignIn()
+        {
+            return View();
+        }
 
         public IActionResult SignUp() {
         
