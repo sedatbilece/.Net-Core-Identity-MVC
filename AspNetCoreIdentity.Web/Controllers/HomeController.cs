@@ -130,6 +130,8 @@ namespace AspNetCoreIdentity.Web.Controllers
             return View();
         }
 
+
+        //Not working
         [HttpPost]
         public async Task<IActionResult> ForgetPassword(ForgetPasswordViewModel request)
         {
