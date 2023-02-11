@@ -1,6 +1,11 @@
 using AspNetCoreIdentity.Web.Models;
 using Microsoft.EntityFrameworkCore;
 using AspNetCoreIdentity.Web.Extensions;
+using Microsoft.AspNetCore.Identity;
+using AspNetCoreIdentity.Web.OptionsModel;
+using Microsoft.Extensions.DependencyInjection;
+using AspNetCoreIdentity.Web.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,7 +17,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 
+
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+
 builder.Services.AddIdentityExtension();// Extensions/StartupExtensions (Sadeleþtirme için)
+
+builder.Services.AddScoped<EmailService, EmailService>();
 
 builder.Services.ConfigureApplicationCookie(opt =>
 {

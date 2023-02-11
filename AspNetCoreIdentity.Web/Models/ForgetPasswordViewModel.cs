@@ -3,7 +3,7 @@
 
 namespace AspNetCoreIdentity.Web.Models
 {
-    public class ResetPasswordViewModel
+    public class ForgetPasswordViewModel
     {
 
         [EmailAddress(ErrorMessage = "Email formatı yanlıştır.")]

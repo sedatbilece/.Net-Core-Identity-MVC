@@ -1,4 +1,5 @@
 ﻿using AspNetCoreIdentity.Web.Models;
+using AspNetCoreIdentity.Web.Services;
 using AspNetCoreIdentity.Web.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,12 +14,15 @@ namespace AspNetCoreIdentity.Web.Controllers
 
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+
+        private readonly EmailService _emailService;
         public HomeController(ILogger<HomeController> logger ,
-            UserManager<AppUser> userManager,  SignInManager<AppUser> signInManager)
+            UserManager<AppUser> userManager,  SignInManager<AppUser> signInManager, EmailService emailService)
         {
             _logger = logger;
             _userManager = userManager;
             _signInManager = signInManager;
+            _emailService = emailService;
         }
 
         public IActionResult Index()
@@ -126,7 +130,31 @@ namespace AspNetCoreIdentity.Web.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ForgetPassword(ForgetPasswordViewModel request)
+        {
 
+            var hasUser = await _userManager.FindByEmailAsync(request.Email);
+
+            if(hasUser == null)
+            {
+                ModelState.AddModelError(string.Empty,"Bu Email adresine sahip kullanıcı bulunamamıştır");
+                return View();
+            }
+
+            string passwordToken =await  _userManager.GeneratePasswordResetTokenAsync(hasUser);
+
+            string passwordResetLink = 
+                Url.Action("ResetPassword", "Home", new { userId = hasUser.Id, Token = passwordToken });
+
+
+            //email service
+            await _emailService.SendResetEmail(passwordResetLink,hasUser.Email);
+
+
+            TempData["SuccessMessage"] = "Şifre sıfırlama linki, Email adresinize gönderilmiştir.";
+            return RedirectToAction("ForgetPassword", "Home");
+        }
 
 
 
