@@ -121,6 +121,13 @@ namespace AspNetCoreIdentity.Web.Controllers
 
 
 
+        public IActionResult ForgetPassword()
+        {
+            return View();
+        }
+
+
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
