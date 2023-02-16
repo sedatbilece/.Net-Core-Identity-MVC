@@ -25,7 +25,7 @@ namespace AspNetCoreIdentity.Web.Controllers
 
             var currentUser =await  _userManager.FindByNameAsync(User.Identity.Name);
 
-            var userViewModel = new UserViewModel()
+            var userViewModel = new UserViewModelForList()
             {
                 Username=currentUser!.UserName,
                 Email=currentUser!.Email,

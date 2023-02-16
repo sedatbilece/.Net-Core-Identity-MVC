@@ -1,6 +1,6 @@
 ﻿namespace AspNetCoreIdentity.Web.ViewModels
 {
-    public class UserViewModel
+    public class UserViewModelForList
     {
         public string? Username { get; set; }
         public string? Email { get; set; }
