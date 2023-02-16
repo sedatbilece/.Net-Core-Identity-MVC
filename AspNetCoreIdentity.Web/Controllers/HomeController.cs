@@ -50,6 +50,10 @@ namespace AspNetCoreIdentity.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> SignIn(SignInViewModel model,string? returnUrl=null)
         {
+            if (!ModelState.IsValid)// validation error
+            {
+                return View();
+            }
 
             //herhangi bir url'e gidilecek erişim isterse urli tutmak için 
             returnUrl = returnUrl ?? Url.Action("Index", "Member");
