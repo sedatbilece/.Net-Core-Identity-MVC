@@ -32,11 +32,13 @@ namespace AspNetCoreIdentity.Web.ViewModels
 
         [Required(ErrorMessage = "Şifre boş olamaz.")]
         [Display(Name = "Şifre")]
+        [MinLength(6, ErrorMessage = "Şifreniz en az 6 karakter olabilir")]
         public string Password { get; set; }
 
         [Compare("Password",ErrorMessage ="Şifreler aynı değildir.")]
         [Required(ErrorMessage = "Şifre Tekrar boş olamaz.")]
         [Display(Name = "Şifre Tekrar")]
+        [MinLength(6, ErrorMessage = "Şifreniz en az 6 karakter olabilir")]
         public string PasswordConfirm { get; set; }
     }
 }
