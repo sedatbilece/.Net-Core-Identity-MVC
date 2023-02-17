@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewData["Title"] = "UserEdit";
+}
+
+@model UserEditViewModel
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h2>Kullanıcı Düzenleme</h2>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-info" role="alert">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        <div asp-validation-summary=ModelOnly class="alert alert-danger" role="alert">
+        </div>
+
+        <form asp-asp-controller="Member" asp-action="UserEdit" method="post" enctype="multipart/form-data">
+
+            <div class="mb-3">
+                <label for="UserName" class="form-label" asp-for="UserName"></label>
+                <input class="form-control" asp-for="UserName" id="UserName" type="text" readonly>
+                <span class="text-danger" asp-validation-for="UserName"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="Email" class="form-label" asp-for="Email"></label>
+                <input class="form-control" asp-for="Email" id="Email" type="email" readonly>
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="Phone" class="form-label" asp-for="Phone"></label>
+                <input class="form-control" asp-for="Phone" id="Phone" type="tel">
+                <span class="text-danger" asp-validation-for="Phone"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="BirtDate" class="form-label" asp-for="BirtDate"></label>
+                <input class="form-control" asp-for="BirtDate" id="BirtDate" type="date">
+                <span class="text-danger" asp-validation-for="BirtDate"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="City" class="form-label" asp-for="City"></label>
+                <input class="form-control" asp-for="City" id="City" type="text">
+                <span class="text-danger" asp-validation-for="City"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="City" class="form-label" asp-for="City"></label>
+                <select class="form-control" asp-for="Gender" asp-items="ViewBag.gender">
+                    <option value="0"> Cinsiyet Seçiniz </option>
+                </select>
+                <span class="text-danger" asp-validation-for="City"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="Picture" class="form-label" asp-for="Picture"></label>
+                <input class="form-control" asp-for="Picture" id="Picture" type="file">
+                <span class="text-danger" asp-validation-for="Picture"></span>
+            </div>
+
+
+            
+            <div class="mb-3">
+
+                <div class="col-md-8 offset-md-10">
+                    <button type="submit" class="btn btn-primary">Güncelle</button>
+                </div>
+            </div>
+
+
+        </form>
+
+    </div>
+</div>
+
+
+
+

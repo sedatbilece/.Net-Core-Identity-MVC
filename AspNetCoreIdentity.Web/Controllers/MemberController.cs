@@ -3,6 +3,7 @@ using AspNetCoreIdentity.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AspNetCoreIdentity.Web.Controllers
 {
@@ -43,9 +44,6 @@ namespace AspNetCoreIdentity.Web.Controllers
 
             return RedirectToAction("Index","Home");
         }
-
-
-
 
 
         [HttpGet]
@@ -89,5 +87,24 @@ namespace AspNetCoreIdentity.Web.Controllers
 
             return RedirectToAction("PasswordChange","Member");
         }
+
+        public async Task<IActionResult> UserEdit() { 
+
+            ViewBag.gender = new SelectList(Enum.GetNames(typeof(Gender)));
+
+            var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            var userEditViewModel = new UserEditViewModel()
+            {
+                UserName = currentUser.UserName,
+                Email = currentUser.Email,
+                Phone = currentUser.PhoneNumber,
+                City = currentUser.City,
+                BirtDate = currentUser.BirtDate,
+                Gender = currentUser.Gender
+            };
+            return View(userEditViewModel); 
+        }
+
     }
 }
