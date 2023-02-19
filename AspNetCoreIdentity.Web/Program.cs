@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using AspNetCoreIdentity.Web.OptionsModel;
 using Microsoft.Extensions.DependencyInjection;
 using AspNetCoreIdentity.Web.Services;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 //sedat bilece test2 mob
+
+// referans noktasýný Proje maini olarak yaptýk 
+builder.Services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Directory.GetCurrentDirectory()));
 
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 
