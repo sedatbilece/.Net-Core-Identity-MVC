@@ -33,7 +33,9 @@ namespace AspNetCoreIdentity.Web.Controllers
             {
                 Username=currentUser!.UserName,
                 Email=currentUser!.Email,
-                PhoneNumber=currentUser!.PhoneNumber
+                PhoneNumber=currentUser!.PhoneNumber,
+                PictureUrl=currentUser.Picture
+                
 
             };
 
