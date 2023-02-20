@@ -30,6 +30,39 @@ namespace AspNetCoreIdentity.Web.Areas.Admin.Controllers
             return View(roleList);
         }
 
+        [HttpPost]
+      public async Task<IActionResult> RoleUpdate(RoleUpdateViewModel model)
+        {
+
+            var roleUpdate = await _roleManager.FindByIdAsync(model.Id);
+            roleUpdate.Name = model.Name;
+            if (roleUpdate == null)
+            {
+                throw new Exception("Böyle bir rol bulunamamıştır");
+            }
+            await _roleManager.UpdateAsync(roleUpdate);
+            TempData["Success"] = "Rol güncelleme  başarı ile gerçekleştirilmiştir";
+
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> RoleUpdate(string  id)
+        {
+
+            var roleUpdate = await _roleManager.FindByIdAsync(id);
+
+            if (roleUpdate == null)
+            {
+                throw new Exception("Böyle bir rol bulunamamıştır");
+            }
+
+            return View(new RoleUpdateViewModel()
+            {
+                Id=roleUpdate.Id,
+                Name = roleUpdate.Name
+            });
+        }
 
 
         [HttpGet]
@@ -37,6 +70,8 @@ namespace AspNetCoreIdentity.Web.Areas.Admin.Controllers
         {
             return View();
         }
+
+
         [HttpPost]
         public async  Task<IActionResult> RolCreate(RoleCreateViewModel model)
         {

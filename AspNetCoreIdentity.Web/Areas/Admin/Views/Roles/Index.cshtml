@@ -13,7 +13,7 @@
         </h2>
     </div>
     <div class="d-inline mx-4">
-        <a asp-action="RolCreate" asp-controller="Roles" asp-area="admin" class="btn btn-outline-secondary">Rol Ekle</a>
+        <a asp-action="RolCreate" asp-controller="Roles" asp-area="Admin" class="btn btn-outline-secondary">Rol Ekle</a>
     </div>
 </div>
 
@@ -26,7 +26,7 @@
         <tr>
             <th>Id</th>
             <th>Rol ismi</th>
-          
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -36,7 +36,9 @@
             <tr>
                 <td>@item.Id</td>
                 <td>@item.Name</td>
-                
+                <td>
+                    <a asp-action="RoleUpdate" asp-controller="Roles" asp-area="admin" asp-route-id=@item.Id class="btn btn-outline-dark"> Güncelle</a>
+                </td>
             </tr>
         }
     </tbody>
