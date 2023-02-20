@@ -3,6 +3,18 @@
 
 
 }
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["Success"]
+    </div>
+}
+
+<a asp-action="RolCreate" asp-controller="Roles" asp-area="admin" class="btn btn-outline-secondary">Rol Ekle</a>
+
+
+
+
 
 <h1>
     Roles index
