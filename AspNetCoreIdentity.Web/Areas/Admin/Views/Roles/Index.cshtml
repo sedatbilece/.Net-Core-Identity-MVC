@@ -1,8 +1,4 @@
-﻿
-@{
-
-
-}
+﻿@model List<RoleListViewModel>
 @if (TempData["Success"] != null)
 {
     <div class="alert alert-success" role="alert">
@@ -10,12 +6,38 @@
     </div>
 }
 
-<a asp-action="RolCreate" asp-controller="Roles" asp-area="admin" class="btn btn-outline-secondary">Rol Ekle</a>
+<div class="flex justify-content-between">
+    <div class="d-inline">
+        <h2 class="d-inline">
+            Roller
+        </h2>
+    </div>
+    <div class="d-inline mx-4">
+        <a asp-action="RolCreate" asp-controller="Roles" asp-area="admin" class="btn btn-outline-secondary">Rol Ekle</a>
+    </div>
+</div>
 
 
 
 
+<table class="table table-striped">
 
-<h1>
-    Roles index
-</h1>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Rol ismi</th>
+          
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                
+            </tr>
+        }
+    </tbody>
+</table>
