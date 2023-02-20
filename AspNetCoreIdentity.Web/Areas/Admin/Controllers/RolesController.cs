@@ -86,5 +86,23 @@ namespace AspNetCoreIdentity.Web.Areas.Admin.Controllers
             TempData["Success"] = "Rol başarıyla oluşturuldu";
             return RedirectToAction("Index");
         }
+
+        
+        public async Task<IActionResult> RoleDelete(string id)
+        {
+            var role = await _roleManager.FindByIdAsync(id);
+
+            if(role == null)
+            {
+                throw new Exception(" Rol silinemedi");
+            }
+            var result =await _roleManager.DeleteAsync(role);
+
+            if (result.Succeeded)
+            {
+                TempData["Success"] = "Rol   başarı ile silinmiştir";
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -27,6 +27,7 @@
             <th>Id</th>
             <th>Rol ismi</th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -38,6 +39,9 @@
                 <td>@item.Name</td>
                 <td>
                     <a asp-action="RoleUpdate" asp-controller="Roles" asp-area="admin" asp-route-id=@item.Id class="btn btn-outline-dark"> Güncelle</a>
+                </td>
+                <td>
+                    <a asp-action="RoleDelete" asp-controller="Roles" asp-area="admin" asp-route-id=@item.Id class="btn btn-outline-danger"> Sil</a>
                 </td>
             </tr>
         }
