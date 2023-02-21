@@ -1,5 +1,6 @@
 ﻿using AspNetCoreIdentity.Web.Areas.Admin.Models;
 using AspNetCoreIdentity.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace AspNetCoreIdentity.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "head-admin")]
     public class RolesController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -19,6 +21,7 @@ namespace AspNetCoreIdentity.Web.Areas.Admin.Controllers
             _roleManager = roleManager;
         }
 
+        
         public async Task<IActionResult> Index()
         {
 
@@ -64,14 +67,14 @@ namespace AspNetCoreIdentity.Web.Areas.Admin.Controllers
             });
         }
 
-
+        
         [HttpGet]
         public IActionResult RolCreate()
         {
             return View();
         }
 
-
+        
         [HttpPost]
         public async  Task<IActionResult> RolCreate(RoleCreateViewModel model)
         {

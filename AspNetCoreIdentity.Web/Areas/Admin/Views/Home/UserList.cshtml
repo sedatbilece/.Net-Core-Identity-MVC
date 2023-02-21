@@ -23,7 +23,8 @@
                 <td>@item.UserId</td>
                 <td>@item.UserName</td>
                 <td>@item.UserEmail</td>
-                <td><a asp-controller="Roles" asp-action="AssignToRole" asp-route-id="@item.UserId">Rol Ata</a></td>
+                <td><a asp-controller="Roles" asp-action="AssignToRole" 
+                   class="btn btn-outline-secondary" asp-route-id="@item.UserId">Düzenle</a></td>
             </tr>
         }
     </tbody>

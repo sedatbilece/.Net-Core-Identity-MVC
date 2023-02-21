@@ -33,7 +33,6 @@ builder.Services.ConfigureApplicationCookie(opt =>
 
     var cookieBuilder = new CookieBuilder();
     cookieBuilder.Name = "IdentityApp";
-
     opt.LoginPath = "/Home/SignIn";
     opt.LogoutPath = "/Member/LogOut";
     opt.Cookie = cookieBuilder;
