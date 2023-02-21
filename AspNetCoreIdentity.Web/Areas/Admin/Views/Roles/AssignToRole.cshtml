@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewData["Title"] = "AssignToRole";
+}
+@model List<AssignToRoleViewModel>
+
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+           <h3>Rol Atama </h3>
+        <div>
+            <div>
+
+                <div asp-validation-summary=ModelOnly class="alert alert-danger" role="alert">
+                </div>
+
+                <form asp-action="AssignToRole" asp-route-UserId="@ViewBag.UserId">
+                    
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+
+                        <div>
+                            <input class="form-check-input mt-0" type="checkbox" asp-for="@Model[i].Exist" >
+                            <label for="@Model[i].Id">@Model[i].Name</label>
+                            <input type="hidden" asp-for="@Model[i].Name" />
+                            <input type="hidden" asp-for="@Model[i].Id" />
+                        </div>
+
+                    }
+
+                    <div class="form-group my-3">
+                        <input type="submit" value="Rol Ata" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a asp-action="UserList" asp-controller="Home">Geri Dön</a>
+        </div>
+    </div>
+</div>
+
+
