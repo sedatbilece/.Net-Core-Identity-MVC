@@ -23,3 +23,11 @@ This is a sample application that demonstrates how to use the <b> .Net Core Iden
 <img src="./docs/rolindex.png">
 <img src="./docs/rolekle.png">
 <img src="./docs/rolupdate.png">
+
+## Google authentication
+
+<img src="./docs/ss1.png">
+<img src="./docs/ss2.png">
+<img src="./docs/ss3.png">
+<img src="./docs/ss4.png">
+<img src="./docs/ss5.png">
