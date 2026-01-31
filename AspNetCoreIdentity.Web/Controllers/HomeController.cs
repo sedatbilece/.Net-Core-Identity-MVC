@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace AspNetCoreIdentity.Web.Controllers
 {
@@ -44,6 +45,88 @@ namespace AspNetCoreIdentity.Web.Controllers
         {
 
             return View();
+        }
+
+
+        // Google ile giriş başlatma
+        [HttpPost]
+        public IActionResult ExternalLogin(string provider, string? returnUrl = null)
+        {
+            var redirectUrl = Url.Action("ExternalLoginCallback", "Home", new { ReturnUrl = returnUrl });
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            return Challenge(properties, provider);
+        }
+
+        // Google'dan geri dönüş
+        public async Task<IActionResult> ExternalLoginCallback(string? returnUrl = null, string? remoteError = null)
+        {
+            returnUrl = returnUrl ?? Url.Action("Index", "Member");
+
+            if (remoteError != null)
+            {
+                ModelState.AddModelError(string.Empty, $"Harici sağlayıcı hatası: {remoteError}");
+                return View("SignIn");
+            }
+
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                ModelState.AddModelError(string.Empty, "Harici giriş bilgisi alınamadı.");
+                return View("SignIn");
+            }
+
+            // Harici sağlayıcı ile giriş yapmayı dene
+            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+
+            if (result.Succeeded)
+            {
+                return Redirect(returnUrl);
+            }
+
+            if (result.IsLockedOut)
+            {
+                ModelState.AddModelError(string.Empty, "Hesabınız kilitlendi.");
+                return View("SignIn");
+            }
+
+            // Kullanıcı yoksa yeni hesap oluştur
+            var email = info.Principal.FindFirstValue(System.Security.Claims.ClaimTypes.Email);
+            var name = info.Principal.FindFirstValue(System.Security.Claims.ClaimTypes.Name);
+
+            if (email != null)
+            {
+                var user = await _userManager.FindByEmailAsync(email);
+
+                if (user == null)
+                {
+                    // Yeni kullanıcı oluştur
+                    user = new AppUser
+                    {
+                        UserName = email.Split('@')[0],
+                        Email = email
+                    };
+
+                    var createResult = await _userManager.CreateAsync(user);
+
+                    if (!createResult.Succeeded)
+                    {
+                        foreach (var error in createResult.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                        return View("SignIn");
+                    }
+                }
+
+                // Harici giriş bilgisini kullanıcıya bağla
+                await _userManager.AddLoginAsync(user, info);
+                await _signInManager.SignInAsync(user, isPersistent: false);
+
+                return Redirect(returnUrl);
+            }
+
+            ModelState.AddModelError(string.Empty, "Email bilgisi alınamadı.");
+            return View("SignIn");
         }
 
 
